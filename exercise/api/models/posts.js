@@ -8,18 +8,29 @@ class Post {
         return this.readData()
     }
 
-    getIndividualBlog() {
-
+    getIndividualBlog(id) {
+        const posts = this.readData()
+        const foundPost = posts.find((el) => el.id == id)
+        return foundPost
     }
 
-    add() {
-
+    add(newPost) {
+        const currentPosts = this.readData()
+        currentPosts.unshift(newPost)
+        this.storeData(currentPosts)
     }
 
+    // READ DATA FROM JSON
     readData() {
-        let rawdata = fs.readFileSync(PATH)
-        let posts = JSON.parse(rawdata)
+        let rawData = fs.readFileSync(PATH)
+        let posts = JSON.parse(rawData)
         return posts
+    }
+
+    // WRITE DATA TO JSON
+    storeData(rawData) {
+        let data = JSON.stringify(rawData) 
+        fs.writeFileSync(PATH, data)
     }
  }
 
