@@ -1,7 +1,12 @@
 const express = require("express")
 const app = express()
+var cors = require('cors')
 const Post = require('./api/models/posts')
 const postsData = new Post()
+
+app.use(cors())
+
+app.use('/uploads', express.static('uploads'))
 
 app.get("/api/posts",(req, res) => {
     res.status(200).send(postsData.get())
